@@ -9,10 +9,33 @@ test ('renders correctly', () => {
 });
 // end snapshot test
 
-test ('gate opens when clicked', () => {});
-test ('gate closes when clicked', () => {});
-test ('button says open when clicked', () => {});
-test ('button says closed when clicked', () => {});
-test ('closed button disabled when gate is locked', () => {});
-test ('locked button is disabled when gate is open', () => {});
+
+
+test ('gate closed and locked when clicked', () => {})
+            
+
+
+test ('button text = open or closed when clicked', () => {});
+
+test ('gate cannot be opened when locked', () => {
+    const gateOpenTgl = jest.fn()
+    const {getByText} = 
+        render (<Controls 
+            gateLocked = {gateOpenTgl}
+            locked = {true} />)
+    const closeGateBtn = {getByText} (/close gate/i)
+    fireEvent.click(closeGateBtn)
+    expect(gateOpenTgl).not.toHaveBeenCalled()
+});
+
+test ('gate cannot be locked when open', () => {
+    const gateLockedTgl = jest.fn()
+    const {getByText} = 
+        render (<Controls
+            gateOpen = {gateLockedTgl}
+            closed = {false} />)
+    const openGateBtn = {getByText} (/lock gate/i)
+    fireEvent.click(openGateBtn)
+    expect(gateLockedTgl).not.toHaveBeenCalled()
+});
 
